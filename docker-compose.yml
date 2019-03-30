@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    env_file: ./.env
+    image: postgres
+    ports:
+      - "15432:5432"
+    environment:
+      - "DB_HOST=${DB_HOST}"
+      - "DB_USERNAME=${DB_USERNAME}" 
+  web:
+    env_file: ./.env
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - "RAILS_ENV=${RAILS_ENV}"
+    depends_on:
+      - db
